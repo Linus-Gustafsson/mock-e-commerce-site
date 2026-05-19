@@ -64,6 +64,12 @@
 - Displays a numeric badge showing the total number of units across all cart items.
 - Clicking the icon opens the `CartDrawer`.
 
+### Cart loading
+
+- `GET /api/cart` is called once on app mount to hydrate the cart state (item list, count badge, and total).
+- The same fetch is repeated after every mutation (add, update, remove, clear) to keep state consistent with the server.
+- While loading, the drawer shows a loading indicator in place of the item list.
+
 ### Cart Drawer
 
 - Slides in from the right as an overlay panel.
