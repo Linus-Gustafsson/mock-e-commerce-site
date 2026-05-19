@@ -16,12 +16,12 @@
 
 ### Existing endpoints (to be implemented)
 
-| Method   | Path                    | Request body              | Success                                               | Error                                              |
-| -------- | ----------------------- | ------------------------- | ----------------------------------------------------- | -------------------------------------------------- |
-| `GET`    | `/api/cart`             | —                         | `200 OK` `CartItem[]`                                 | —                                                  |
-| `POST`   | `/api/cart`             | `{ productId, quantity }` | `201 Created` (new) / `200 OK` (increment) `CartItem` | `404` product not found · `422` qty would exceed 5 |
-| `DELETE` | `/api/cart/{productId}` | —                         | `204 No Content`                                      | `404` not in cart                                  |
-| `DELETE` | `/api/cart`             | —                         | `204 No Content`                                      | —                                                  |
+| Method   | Path                    | Request body              | Success                                               | Error                                                                              |
+| -------- | ----------------------- | ------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `GET`    | `/api/cart`             | —                         | `200 OK` `CartItem[]`                                 | —                                                                                  |
+| `POST`   | `/api/cart`             | `{ productId, quantity }` | `201 Created` (new) / `200 OK` (increment) `CartItem` | `404` product not found · `422` qty is negative or zero · `422` qty would exceed 5 |
+| `DELETE` | `/api/cart/{productId}` | —                         | `204 No Content`                                      | `404` not in cart                                                                  |
+| `DELETE` | `/api/cart`             | —                         | `204 No Content`                                      | —                                                                                  |
 
 ### New endpoint
 
@@ -48,6 +48,7 @@
 | Rule                                                 | Enforced at         |
 | ---------------------------------------------------- | ------------------- |
 | `quantity` on POST must be ≥ 1                       | Backend (422)       |
+| `quantity` on POST must not be negative or zero      | Backend (422)       |
 | Cumulative quantity per product must not exceed 5    | Backend (422)       |
 | `quantity` on PUT must be in range [1, 5]            | Backend (422)       |
 | `+` button disabled when item qty = 5                | Frontend            |
