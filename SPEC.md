@@ -29,6 +29,8 @@
 | ------ | ----------------------- | -------------- | ------------------- | ------------------------------------------------- |
 | `PUT`  | `/api/cart/{productId}` | `{ quantity }` | `200 OK` `CartItem` | `404` not in cart · `422` qty out of range [1, 5] |
 
+> **PUT sets the exact quantity.** `{ quantity: 3 }` replaces the current quantity with 3 — it is not a delta.
+
 ### `CartItem` response shape
 
 ```json
@@ -45,14 +47,13 @@
 
 ## Validation Rules
 
-| Rule                                                 | Enforced at         |
-| ---------------------------------------------------- | ------------------- |
-| `quantity` on POST must be ≥ 1                       | Backend (422)       |
-| `quantity` on POST must not be negative or zero      | Backend (422)       |
-| Cumulative quantity per product must not exceed 5    | Backend (422)       |
-| `quantity` on PUT must be in range [1, 5]            | Backend (422)       |
-| `+` button disabled when item qty = 5                | Frontend            |
-| "Add to cart" button disabled when product stock = 0 | Frontend (existing) |
+| Rule                                                                                  | Enforced at         |
+| ------------------------------------------------------------------------------------- | ------------------- |
+| `quantity` on POST must be ≥ 1 (negative or zero rejected)                            | Backend (422)       |
+| Cumulative quantity per product must not exceed 5                                     | Backend (422)       |
+| `quantity` on PUT is the new absolute quantity (not a delta); must be in range [1, 5] | Backend (422)       |
+| `+` button disabled when item qty = 5                                                 | Frontend            |
+| "Add to cart" button disabled when product stock = 0                                  | Frontend (existing) |
 
 ---
 
