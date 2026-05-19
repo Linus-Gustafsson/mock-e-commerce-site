@@ -33,4 +33,12 @@ public interface ICartService
 
     /// <summary>Removes all items from the cart.</summary>
     void Clear();
+
+    /// <summary>
+    /// Sets the quantity of an existing cart item to the specified absolute value.
+    /// </summary>
+    /// <param name="productId">The product ID to update.</param>
+    /// <param name="quantity">The new absolute quantity (1–5).</param>
+    /// <returns>The updated cart item.</returns>
+    CartItem Update(int productId, int quantity);
 }

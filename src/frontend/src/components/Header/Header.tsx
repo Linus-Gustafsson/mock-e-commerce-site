@@ -1,13 +1,16 @@
 interface HeaderProps {
   cartItemCount: number;
+  onCartOpen: () => void;
 }
 
-export function Header({ cartItemCount }: HeaderProps) {
+export function Header({ cartItemCount, onCartOpen }: HeaderProps) {
   return (
     <header className="header">
       <div className="header__inner">
         <a href="/" className="header__logo" aria-label="Mock Shop home">
-          <span className="header__logo-icon" aria-hidden="true">M</span>
+          <span className="header__logo-icon" aria-hidden="true">
+            M
+          </span>
           <span className="header__logo-text">Mock Shop</span>
         </a>
 
@@ -26,6 +29,7 @@ export function Header({ cartItemCount }: HeaderProps) {
         <div className="header__actions">
           <button
             className="header__cart-button"
+            onClick={onCartOpen}
             aria-label={`Shopping cart with ${cartItemCount} items`}
           >
             <svg
